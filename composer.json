@@ -1,0 +1,29 @@
+{
+    "name": "itwapp/itwapp-php",
+    "description": "InterviewApp PHP Library",
+    "keywords": [
+        "InterviewApp",
+        "interview video",
+        "api"
+    ],
+    "homepage": "http://itwapp.io/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "InterviewApp and contributors",
+            "homepage": "https://github.com/itwapp/php-sdk/contributors"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "4.2.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.2.6"
+    },
+    "autoload": {
+        "classmap": ["lib/Itwapp/"]
+    },
+    "autoload-dev": {
+        "classmap": ["lib/Itwapp/"]
+    }
+}
