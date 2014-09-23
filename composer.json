@@ -11,7 +11,7 @@
     "authors": [
         {
             "name": "InterviewApp and contributors",
-            "homepage": "https://github.com/itwapp/php-sdk/contributors"
+            "homepage": "https://github.com/itwapp/itwapp-php/contributors"
         }
     ],
     "require": {
