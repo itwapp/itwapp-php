@@ -1,12 +1,15 @@
-= InterviewApp PHP bindings
+InterviewApp PHP bindings
+====
 
 You can sign up for an InterviewApp account at http://itwapp.io.
 
-== Requirements
+Requirements
+----
 
 PHP 5.4 and later.
 
-== Composer
+Composer
+----
 
 You can install the bindings via Composer[http://getcomposer.org/]. Add this to your +composer.json+:
 
@@ -28,7 +31,8 @@ Or manually:
 
     require_once('/path/to/vendor/itwapp/itwapp-php/lib/Itwapp.php');
 
-== Manual Installation
+Manual Installation
+----
 
 Obtain the latest version of the Itwapp PHP bindings with:
 
@@ -38,13 +42,15 @@ To use the bindings, add the following to your PHP script:
 
     require_once("/path/to/itwapp-php/lib/Itwapp.php");
 
-== Getting Started
+Getting Started
+----
 
 Simple usage looks like:
 
     Itwapp::setApiKey('627c8047c69c25b7e1db3064b61917e0');
 
-== Documentation
+Documentation
+----
 
 Please see http://api.itwapp.io/ for up-to-date documentation.
 
