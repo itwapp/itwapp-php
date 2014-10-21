@@ -11,7 +11,7 @@ PHP 5.4 and later.
 Composer
 ----
 
-You can install the bindings via Composer[http://getcomposer.org/]. Add this to your +composer.json+:
+You can install the bindings via [Composer](http://getcomposer.org/). Add this to your `composer.json`:
 
     {
       "require": {
@@ -23,7 +23,7 @@ Then install via:
 
     composer.phar install
 
-To use the bindings, either user Composer's autoload[https://getcomposer.org/doc/00-intro.md#autoloading]:
+To use the bindings, either user Composer's [autoload](https://getcomposer.org/doc/00-intro.md#autoloading):
 
     require_once('vendor/autoload.php');
 
