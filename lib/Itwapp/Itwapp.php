@@ -13,7 +13,7 @@ abstract class Itwapp {
     /**
      * @var string The base URL for the Itwapp API.
      */
-    public static $apiBase = 'https://itwapp.io';
+    public static $apiBase = 'http://itwapp.io';
 
     /**
      * @return string The API key used for requests.

@@ -353,6 +353,39 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($res->deleted);
         $this->assertCount(1, $res->questions);
 
+        $this->assertEquals("http://itwapp.io", $res->callback);
+
+        Interview::delete($res->interview, array("withApplicant" => true));
+
+        $app = Applicant::findOne($res->id);
+        $this->assertTrue($app->deleted);
+    }
+
+    public function testCreateWithCallback()   {
+        $param = [
+            "mail" => "jerome@itwapp.io",
+            "alert" => false,
+            "questions" => [
+                [
+                    "content" => "question 1",
+                    "readingTime"=> 60,
+                    "answerTime"=> 60,
+                    "number"=> 1
+                ]
+            ],
+            "lang" => "en",
+            "deadline" => 1409045626568,
+            "callback" => "http://mycustomeurl.com/done"
+        ];
+
+
+        $res = Applicant::create($param);
+        $this->assertEquals("jerome@itwapp.io", $res->mail);
+        $this->assertFalse($res->deleted);
+        $this->assertCount(1, $res->questions);
+
+        $this->assertEquals("http://mycustomeurl.com/done", $res->callback);
+
         Interview::delete($res->interview, array("withApplicant" => true));
 
         $app = Applicant::findOne($res->id);

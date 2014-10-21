@@ -231,6 +231,7 @@ class InterviewTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Interview", get_class($res));
         $this->assertTrue(isset($res->id));
         $this->assertCount(1, $res->questions);
+        $this->assertEquals("http://itwapp.io", $res->callback);
         InterviewTest::$interviewId = $res->id;
     }
 
@@ -494,6 +495,40 @@ class InterviewTest extends PHPUnit_Framework_TestCase {
         $res = Interview::update(InterviewTest::$interviewId, $array);
         $this->assertEquals("Interview", get_class($res));
         $this->assertTrue(isset($res->id));
+        $this->assertEquals("http://itwapp.io", $res->callback);
+
+        $this->assertCount(2, $res->questions);
+        $this->assertEquals("question 1 - Updated", $res->questions[0]->content);
+
+    }
+
+    public function testUpdateWithCallback()    {
+        $this->assertNotNull(InterviewTest::$interviewId);
+        $array = [
+            "name" => "interview 1",
+            "questions" => [
+                [
+                    "content" => "question 1 - Updated",
+                    "readingTime"=> 60,
+                    "answerTime"=> 60,
+                    "number"=> 1
+                ],
+                [
+                    "content" => "question 2",
+                    "readingTime"=> 60,
+                    "answerTime"=> 60,
+                    "number"=> 1
+                ]
+            ],
+            "video"=> "",
+            "text"=> "",
+            "callback" => "http://myurl.com/done"
+        ];
+
+        $res = Interview::update(InterviewTest::$interviewId, $array);
+        $this->assertEquals("Interview", get_class($res));
+        $this->assertTrue(isset($res->id));
+        $this->assertEquals("http://myurl.com/done", $res->callback);
 
         $this->assertCount(2, $res->questions);
         $this->assertEquals("question 1 - Updated", $res->questions[0]->content);
@@ -510,6 +545,35 @@ class InterviewTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($res));
 
         $this->assertEquals(InterviewTest::$countInterview, count($res));
+    }
+
+    public function testCreateWithCallback()    {
+        $array = [
+            "name" => "interview 1",
+            "questions" => [
+                [
+                    "content" => "question 1",
+                    "readingTime"=> 60,
+                    "answerTime"=> 60,
+                    "number"=> 1
+                ]
+            ],
+            "video"=> "",
+            "text"=> "",
+            "callback" => "http://myurl.com/done"
+        ];
+
+        $res = Interview::create($array);
+        $this->assertEquals("Interview", get_class($res));
+        $this->assertTrue(isset($res->id));
+        $this->assertCount(1, $res->questions);
+        $this->assertEquals("http://myurl.com/done", $res->callback);
+        InterviewTest::$interviewId = $res->id;
+    }
+
+    public function testDeleteWithCallback()    {
+        $this->assertNotNull(InterviewTest::$interviewId);
+        Interview::delete(InterviewTest::$interviewId, array());
     }
 
 }

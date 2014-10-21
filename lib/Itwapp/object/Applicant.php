@@ -82,7 +82,31 @@ class Applicant {
      */
     public $deleted;
 
-    public function __construct($id, $mail, $questions, $responses, $interview, $dateBegin, $dateEnd, $dateAnswer, $emailView, $linkClicked, $firstname, $lastname, $lang, $videoLink, $text, $deleted) {
+    /**
+     * @var string the url where the candidate will be redirected at the end of the interview.
+     */
+    public $callback;
+
+    /**
+     * @param $id
+     * @param $mail
+     * @param $questions
+     * @param $responses
+     * @param $interview
+     * @param $dateBegin
+     * @param $dateEnd
+     * @param $dateAnswer
+     * @param $emailView
+     * @param $linkClicked
+     * @param $firstname
+     * @param $lastname
+     * @param $lang
+     * @param $videoLink
+     * @param $text
+     * @param $deleted
+     * @param string $callback
+     */
+    public function __construct($id, $mail, $questions, $responses, $interview, $dateBegin, $dateEnd, $dateAnswer, $emailView, $linkClicked, $firstname, $lastname, $lang, $videoLink, $text, $deleted, $callback = "http://itwapp.io") {
         $this->id = $id;
         $this->dateAnswer = $dateAnswer;
         $this->dateBegin = $dateBegin;
@@ -99,6 +123,7 @@ class Applicant {
         $this->responses = $responses;
         $this->text = $text;
         $this->videoLink = $videoLink;
+        $this->callback = $callback;
     }
 
     /**
@@ -118,7 +143,7 @@ class Applicant {
             $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"]);
         }
 
-        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"]);
+        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"]);
     }
 
     private static $acceptedValue = array(60, 120, 180, 240, 300);
@@ -129,18 +154,19 @@ class Applicant {
      * @throws InvalidRequestError
      * @return Applicant
      */
-    public static function create($param)   {
-        if(!isset($param["mail"]) || !isset($param["alert"]) || !isset($param["lang"]) || !isset($param["deadline"]))  {
+    public static function create($param)
+    {
+        if (!isset($param["mail"]) || !isset($param["alert"]) || !isset($param["lang"]) || !isset($param["deadline"])) {
             $missing = array();
             !isset($param["mail"]) ? $missing[] = "mail" : null;
             !isset($param["alert"]) ? $missing[] = "alert" : null;
             !isset($param["lang"]) ? $missing[] = "lang" : null;
             !isset($param["deadline"]) ? $missing[] = "deadline" : null;
-            throw new InvalidRequestError("missing param: ".implode($missing, ", "));
+            throw new InvalidRequestError("missing param: " . implode($missing, ", "));
         }
 
-        if(isset($param["questions"]) && is_array($param["questions"]) && count($param["questions"]) != 0 )    {
-            foreach($param["questions"] as $q) {
+        if (isset($param["questions"]) && is_array($param["questions"]) && count($param["questions"]) != 0) {
+            foreach ($param["questions"] as $q) {
                 if (!isset($q["content"]) || !isset($q["readingTime"]) || !isset($q["answerTime"]) || !isset($q["number"])) {
                     $missing = array();
 
@@ -154,26 +180,26 @@ class Applicant {
                         $missing[] = "number";
 
                     throw new InvalidRequestError("missing param: " . implode($missing, ", "));
-                }else if(!in_array($q["readingTime"], Applicant::$acceptedValue) || !in_array($q["answerTime"], Applicant::$acceptedValue) )  {
+                } else if (!in_array($q["readingTime"], Applicant::$acceptedValue) || !in_array($q["answerTime"], Applicant::$acceptedValue)) {
                     throw new InvalidRequestError("invalid duration of readingTime or answerTime");
                 }
             }
-        }else if(!isset($param["interview"])){
+        } else if (!isset($param["interview"])) {
             throw new InvalidRequestError("missing param: interview and questions");
         }
 
         $app = ApiRequest::post("/api/v1/applicant/", $param);
         $questions = array();
-        foreach($app["questions"] as $q)    {
+        foreach ($app["questions"] as $q) {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
 
         $responses = array();
-        foreach($app["responses"] as $q)    {
+        foreach ($app["responses"] as $q) {
             $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"]);
         }
 
-        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"]);
+        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"]);
     }
 
     /**

@@ -21,7 +21,6 @@ abstract class ApiRequest {
         $res = $client->get(Itwapp::$apiBase.$signedRequest, [
             'exceptions' => false
         ]);
-
         return ApiRequest::parse_result($res);
     }
 
@@ -130,7 +129,7 @@ abstract class ApiRequest {
             $url .= "?apiKey=".\Itwapp::$apiKey;
         }
         $milliseconds = round(microtime(true) * 1000);
-        $url .= "&timestamp=".$milliseconds;
+        $url .= "&timestamp=".sprintf('%d',$milliseconds );
         $signature = Sign::encode($mode.":".$url, Itwapp::$secretKey);
         return $url . "&signature=".$signature;
     }

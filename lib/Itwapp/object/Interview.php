@@ -28,18 +28,25 @@ class Interview {
     public $text;
 
     /**
+     * @var string the url where the candidate will be redirected at the end of the interview.
+     */
+    public $callback;
+
+    /**
      * @param $id
      * @param $name
      * @param $questions
      * @param $video
      * @param $text
+     * @param string $callback
      */
-    public function __construct($id, $name, $questions, $video, $text)    {
+    public function __construct($id, $name, $questions, $video, $text, $callback = "http://itwapp.io")    {
         $this->id = $id;
         $this->name = $name;
         $this->questions = $questions;
         $this->video = $video;
         $this->text = $text;
+        $this->callback = $callback;
     }
 
     /**
@@ -62,7 +69,7 @@ class Interview {
             foreach($itw["questions"] as $q)    {
                 $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
             }
-            $all[] = new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"]);
+            $all[] = new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
         }
         return $all;
     }
@@ -78,7 +85,7 @@ class Interview {
         foreach($itw["questions"] as $q)    {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
-        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"]);
+        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
     }
 
     /**
@@ -107,7 +114,7 @@ class Interview {
                 $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"]);
             }
 
-            $all[] = new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"]);
+            $all[] = new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"]);
         }
         return $all;
     }
@@ -154,7 +161,7 @@ class Interview {
         foreach($itw["questions"] as $q)    {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
-        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"]);
+        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
     }
 
     /**
@@ -198,7 +205,7 @@ class Interview {
         foreach($itw["questions"] as $q)    {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
-        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"]);
+        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
     }
 
     /**
