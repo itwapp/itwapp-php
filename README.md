@@ -1,4 +1,4 @@
-InterviewApp PHP bindings
+InterviewApp PHP bindings [![Build Status](https://travis-ci.org/itwapp/itwapp-php.svg)](https://travis-ci.org/itwapp/itwapp-php)
 ====
 
 You can sign up for an InterviewApp account at http://itwapp.io.
