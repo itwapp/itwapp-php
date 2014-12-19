@@ -1,15 +1,12 @@
 language: php
 
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6
 
 script:
-  - mkdir -p build/logs
-  - composer install --dev --no-interaction
-  - phpunit --coverage-clover build/logs/clover.xml test/
+  - phpunit test/
 
 after_script:
-  - php vendor/bin/coveralls -v
+  - coveralls
