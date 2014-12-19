@@ -6,6 +6,7 @@ php:
   - 5.6
 
 script:
+  - composer install --dev --no-interaction
   - phpunit test/
 
 after_script:
