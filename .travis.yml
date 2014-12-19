@@ -13,4 +13,4 @@ script:
   - phpunit
 
 after_script:
-  - vendor/bin/coveralls -v
+  - php vendor/bin/coveralls -v
