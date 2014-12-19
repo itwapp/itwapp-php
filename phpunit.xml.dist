@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./test/bootstrap.php" colors="true">
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         bootstrap="./vendor/autoload.php">
      <!-- Quels fichiers sont concernés par l'évaluation du code coverage -->
+
+    <testsuites>
+        <testsuite name="object">
+            <directory>./test/itwapp/object/</directory>
+        </testsuite>
+        <testsuite name="rest">
+            <directory>./test/itwapp/rest/</directory>
+        </testsuite>
+    </testsuites>
+
     <filter>
-        <whitelist>
-            <directory>./</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">lib</directory>
             <exclude>
-                <directory>./test</directory>
-                <directory>./vendor</directory>
+                <file>lib/Itwapp.php</file>
             </exclude>
         </whitelist>
     </filter>

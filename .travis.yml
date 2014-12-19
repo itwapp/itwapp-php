@@ -5,7 +5,7 @@ php:
 
 script:
   - composer install --dev --no-interaction
-  - phpunit test/
+  - phpunit
 
 after_script:
-  - coveralls
+  - vendor/bin/coveralls -v
