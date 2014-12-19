@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="./test/bootstrap.php" colors="true">
+     <!-- Quels fichiers sont concernés par l'évaluation du code coverage -->
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./test</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+
+</phpunit>
