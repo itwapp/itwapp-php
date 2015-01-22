@@ -15,7 +15,7 @@ You can install the bindings via [Composer](http://getcomposer.org/). Add this t
 
     {
       "require": {
-        "itwapp/itwapp-php": "1.*"
+        "itwapp/itwapp-php" : "dev-master"
       }
     }
 
