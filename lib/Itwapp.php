@@ -14,6 +14,7 @@ require_once(dirname(__FILE__) . '/Itwapp/rest/ApiRequest.php');
 require_once(dirname(__FILE__) . '/Itwapp/rest/Sign.php');
 
 // Itwapp API Resources
+require_once(dirname(__FILE__) . '/Itwapp/object/ApplicantStatus.php');
 require_once(dirname(__FILE__) . '/Itwapp/object/Applicant.php');
 require_once(dirname(__FILE__) . '/Itwapp/object/Interview.php');
 require_once(dirname(__FILE__) . '/Itwapp/object/Question.php');

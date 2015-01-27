@@ -309,6 +309,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $res = Applicant::create($param);
         $this->assertEquals("jerome@itwapp.io", $res->mail);
         $this->assertFalse($res->deleted);
+        $this->assertEquals(ApplicantStatus::UNKNOW, $res->status);
         ApplicantTest::$applicantId = $res->id;
     }
 
@@ -354,6 +355,45 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $this->assertCount(1, $res->questions);
 
         $this->assertEquals("http://itwapp.io", $res->callback);
+
+        $interview = Interview::findOne($res->interview);
+
+        $this->assertRegExp('/auto-generated.*/', $interview->name);
+
+        Interview::delete($res->interview, array("withApplicant" => true));
+
+        $app = Applicant::findOne($res->id);
+        $this->assertTrue($app->deleted);
+    }
+
+    public function testCreateWithQuestionAndInterviewName()   {
+        $param = [
+            "mail" => "jerome@itwapp.io",
+            "alert" => false,
+            "questions" => [
+                [
+                    "content" => "question 1",
+                    "readingTime"=> 60,
+                    "answerTime"=> 60,
+                    "number"=> 1
+                ]
+            ],
+            "lang" => "en",
+            "deadline" => 1409045626568,
+            "interviewName" => "My Super Interview"
+        ];
+
+
+        $res = Applicant::create($param);
+        $this->assertEquals("jerome@itwapp.io", $res->mail);
+        $this->assertFalse($res->deleted);
+        $this->assertCount(1, $res->questions);
+
+        $this->assertEquals("http://itwapp.io", $res->callback);
+
+        $interview = Interview::findOne($res->interview);
+
+        $this->assertEquals('My Super Interview', $interview->name);
 
         Interview::delete($res->interview, array("withApplicant" => true));
 

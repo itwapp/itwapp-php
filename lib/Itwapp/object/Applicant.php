@@ -88,6 +88,11 @@ class Applicant {
     public $callback;
 
     /**
+     * @var int Applicant status. 3 completed, 2 in progress, 1 open email, 0 email sent, -1 unknown (email was not sent through Itwapp)
+     */
+    public $status;
+
+    /**
      * @param $id
      * @param $mail
      * @param $questions
@@ -105,8 +110,9 @@ class Applicant {
      * @param $text
      * @param $deleted
      * @param string $callback
+     * @param $status
      */
-    public function __construct($id, $mail, $questions, $responses, $interview, $dateBegin, $dateEnd, $dateAnswer, $emailView, $linkClicked, $firstname, $lastname, $lang, $videoLink, $text, $deleted, $callback = "http://itwapp.io") {
+    public function __construct($id, $mail, $questions, $responses, $interview, $dateBegin, $dateEnd, $dateAnswer, $emailView, $linkClicked, $firstname, $lastname, $lang, $videoLink, $text, $deleted, $callback = "http://itwapp.io", $status = ApplicantStatus::UNKNOW) {
         $this->id = $id;
         $this->dateAnswer = $dateAnswer;
         $this->dateBegin = $dateBegin;
@@ -124,6 +130,12 @@ class Applicant {
         $this->text = $text;
         $this->videoLink = $videoLink;
         $this->callback = $callback;
+        if($status != ApplicantStatus::COMPLETED && $status != ApplicantStatus::EMAILSENT && $status != ApplicantStatus::INPROGRESS && $status != ApplicantStatus::OPENEMAIL)   {
+            $this->status = ApplicantStatus::UNKNOW;
+        }else   {
+            $this->status = $status;
+        }
+
     }
 
     /**
@@ -143,7 +155,7 @@ class Applicant {
             $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"]);
         }
 
-        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"]);
+        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"], $app["status"]);
     }
 
     private static $acceptedValue = array(60, 120, 180, 240, 300);
@@ -199,7 +211,7 @@ class Applicant {
             $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"]);
         }
 
-        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"]);
+        return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"], $app["status"]);
     }
 
     /**
