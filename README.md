@@ -1,4 +1,4 @@
-InterviewApp PHP bindings [![Build Status](https://travis-ci.org/itwapp/itwapp-php.svg)](https://travis-ci.org/itwapp/itwapp-php) [![Coverage Status](https://coveralls.io/repos/itwapp/itwapp-php/badge.png)](https://coveralls.io/r/itwapp/itwapp-php)
+InterviewApp PHP bindings [![Build Status](https://travis-ci.org/itwapp/itwapp-php.svg)](https://travis-ci.org/itwapp/itwapp-php) [![Coverage Status](https://coveralls.io/repos/itwapp/itwapp-php/badge.png?branch=master)](https://coveralls.io/r/itwapp/itwapp-php?branch=master)
 ====
 
 You can sign up for an InterviewApp account at http://itwapp.io.
@@ -15,7 +15,7 @@ You can install the bindings via [Composer](http://getcomposer.org/). Add this t
 
     {
       "require": {
-        "itwapp/itwapp-php": "1.*"
+        "itwapp/itwapp-php" : "dev-master"
       }
     }
 
