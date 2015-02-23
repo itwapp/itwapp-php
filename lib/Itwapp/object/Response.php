@@ -22,6 +22,11 @@ class Response {
      */
     public $number;
 
+    /**
+     * @var String This is the thumbnail url for this video.
+     */
+    public $thumbnail;
+
 
     /**
      * @param $file
@@ -29,11 +34,12 @@ class Response {
      * @param $fileSize
      * @param $number
      */
-    public function __construct($file, $duration, $fileSize, $number)  {
+    public function __construct($file, $duration, $fileSize, $number, $thumbnail)  {
         $this->file = $file;
         $this->duration = $duration;
         $this->fileSize = $fileSize;
         $this->number = $number;
+        $this->thumbnail = $thumbnail;
     }
 
 } 

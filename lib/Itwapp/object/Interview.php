@@ -111,7 +111,7 @@ class Interview {
 
             $responses = array();
             foreach($app["responses"] as $q)    {
-                $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"]);
+                $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"], $q["thumbnail"]);
             }
 
             $all[] = new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"], $app["status"]);
