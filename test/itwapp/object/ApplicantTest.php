@@ -50,6 +50,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamMail
+     */
     public function testCreateWithMissingParamAlert()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -67,6 +70,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamAlert
+     */
     public function testCreateWithMissingParamLang()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -84,6 +90,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamLang
+     */
     public function testCreateWithMissingParamDeadLine()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -101,6 +110,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamDeadLine
+     */
     public function testCreateWithMissingParamInterviewAndQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -118,6 +130,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamInterviewAndQuestion
+     */
     public function testCreateWithWrongParamQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -135,6 +150,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithWrongParamQuestion
+     */
     public function testCreateWithMissingParamContentOnQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -159,6 +177,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamContentOnQuestion
+     */
     public function testCreateWithEmptyParamQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -176,6 +197,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithEmptyParamQuestion
+     */
     public function testCreateWithMissingParamReadingTimeOnQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -200,6 +224,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamReadingTimeOnQuestion
+     */
     public function testCreateWithWrongParamReadingTimeOnQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -224,6 +251,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithWrongParamReadingTimeOnQuestion
+     */
     public function testCreateWithMissingParamAnswerTimeOnQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -248,6 +278,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamAnswerTimeOnQuestion
+     */
     public function testCreateWithWrongParamAnswerTimeOnQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -272,6 +305,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithWrongParamAnswerTimeOnQuestion
+     */
     public function testCreateWithMissingParamNumberOnQuestion()    {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -296,6 +332,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * @depends testCreateWithMissingParamNumberOnQuestion
+     */
     public function testCreateWithInterviewId() {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -313,6 +352,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         ApplicantTest::$applicantId = $res->id;
     }
 
+    /**
+     * @depends testCreateWithInterviewId
+     */
     public function testFindAllApplicant()  {
         $all = Interview::findAllApplicant(ApplicantTest::$interviewId, array());
 
@@ -323,6 +365,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $this->assertCount(0, $empty_list);
     }
 
+    /**
+     * @depends testFindAllApplicant
+     */
     public function testDelete() {
         $this->assertNotNull(ApplicantTest::$applicantId);
 
@@ -332,6 +377,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($app->deleted);
     }
 
+    /**
+     * @depends testDelete
+     */
     public function testCreateWithQuestion()   {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -366,6 +414,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($app->deleted);
     }
 
+    /**
+     * @depends testCreateWithQuestion
+     */
     public function testCreateWithQuestionAndInterviewName()   {
         $param = [
             "mail" => "jerome@itwapp.io",
@@ -401,6 +452,9 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($app->deleted);
     }
 
+    /**
+     * @depends testCreateWithQuestionAndInterviewName
+     */
     public function testCreateWithCallback()   {
         $param = [
             "mail" => "jerome@itwapp.io",
