@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__FILE__) . '/Itwapp/rest/AccessToken.php');
+
 // Itwapp singleton
 require_once(dirname(__FILE__) . '/Itwapp/Itwapp.php');
 

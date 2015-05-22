@@ -313,15 +313,6 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
         ApplicantTest::$applicantId = $res->id;
     }
 
-    public function testDelete() {
-        $this->assertNotNull(ApplicantTest::$applicantId);
-
-        Applicant::delete(ApplicantTest::$applicantId);
-
-        $app = Applicant::findOne(ApplicantTest::$applicantId);
-        $this->assertTrue($app->deleted);
-    }
-
     public function testFindAllApplicant()  {
         $all = Interview::findAllApplicant(ApplicantTest::$interviewId, array());
 
@@ -330,6 +321,15 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
 
         $empty_list = Interview::findAllApplicant(ApplicantTest::$interviewId, array("next" => ApplicantTest::$applicantId));
         $this->assertCount(0, $empty_list);
+    }
+
+    public function testDelete() {
+        $this->assertNotNull(ApplicantTest::$applicantId);
+
+        Applicant::delete(ApplicantTest::$applicantId);
+
+        $app = Applicant::findOne(ApplicantTest::$applicantId);
+        $this->assertTrue($app->deleted);
     }
 
     public function testCreateWithQuestion()   {

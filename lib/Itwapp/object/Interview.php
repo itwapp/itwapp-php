@@ -33,20 +33,41 @@ class Interview {
     public $callback;
 
     /**
+     * @var int Number of invitation sent to pass this interview.
+     */
+    public $sent;
+
+    /**
+     * @var int Number of applicant that have completed the interview.
+     */
+    public $answers;
+
+    /**
+     * @var int Number of applicant not yet see.
+     */
+    public $news;
+
+    /**
      * @param $id
      * @param $name
      * @param $questions
      * @param $video
      * @param $text
+     * @param $sent
+     * @param $answers
+     * @param $news
      * @param string $callback
      */
-    public function __construct($id, $name, $questions, $video, $text, $callback = "http://itwapp.io")    {
+    public function __construct($id, $name, $questions, $video, $text, $callback, $sent, $answers, $news)    {
         $this->id = $id;
         $this->name = $name;
         $this->questions = $questions;
         $this->video = $video;
         $this->text = $text;
         $this->callback = $callback;
+        $this->sent = $sent;
+        $this->answers = $answers;
+        $this->news = $news;
     }
 
     /**
@@ -69,7 +90,7 @@ class Interview {
             foreach($itw["questions"] as $q)    {
                 $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
             }
-            $all[] = new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
+            $all[] = new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"], $itw["sent"], $itw["answers"], $itw["new"]);
         }
         return $all;
     }
@@ -85,7 +106,7 @@ class Interview {
         foreach($itw["questions"] as $q)    {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
-        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
+        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"], $itw["sent"], $itw["answers"], $itw["new"]);
     }
 
     /**
@@ -161,7 +182,7 @@ class Interview {
         foreach($itw["questions"] as $q)    {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
-        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
+        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"], $itw["sent"], $itw["answers"], $itw["new"]);
     }
 
     /**
@@ -205,7 +226,7 @@ class Interview {
         foreach($itw["questions"] as $q)    {
             $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
         }
-        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"]);
+        return new Interview($itw["_id"], $itw["name"], $questions, $itw["video"], $itw["text"], $itw["callback"], $itw["sent"], $itw["answers"], $itw["new"]);
     }
 
     /**

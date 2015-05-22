@@ -4,12 +4,12 @@ abstract class Itwapp {
     /**
      * @var string The Itwapp API key to be used for requests.
      */
-    public static $apiKey;
+    public static $apiKey = null;
 
     /**
      * @var string The Itwapp API secret key to be used for requests.
      */
-    public static $secretKey;
+    public static $secretKey = null;
     /**
      * @var string The base URL for the Itwapp API.
      */
@@ -49,5 +49,48 @@ abstract class Itwapp {
     public static function setApiSecretKey($secretKey)
     {
         self::$secretKey = $secretKey;
+    }
+
+    /**
+     * Init api key and secret key with mail and password
+     * @param $mail
+     * @param $password
+     * @return AccessToken
+     * @throws InvalidRequestError
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws UnauthorizedException
+     */
+    public static function Authenticate($mail, $password)
+    {
+        $body = [
+            "mail" => $mail,
+            "password" => $password
+        ];
+        $client = new GuzzleHttp\Client();
+        $res = $client->post(Itwapp::$apiBase.'/api/v1/auth/', [
+            'json' => $body,
+            'exceptions' => false
+        ]);
+        if($res->getStatusCode() == 200)    {
+            $json = $res->json();
+            return new AccessToken($json["apiKey"], $json["secretKey"]);
+        }else{
+            switch($res->getStatusCode())   {
+                case 401 :
+                    throw new UnauthorizedException();
+                    break;
+                case 400 :
+                    throw new InvalidRequestError();
+                    break;
+                case 404 :
+                    throw new ResourceNotFoundException();
+                    break;
+                case 503 :
+                case 500 :
+                default :
+                    throw new ServiceException();
+            }
+        }
     }
 } 
