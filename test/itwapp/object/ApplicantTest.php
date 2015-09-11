@@ -5,6 +5,8 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
     private static $interviewId;
     private static $applicantId = null;
 
+    private static $oneMonth = 2674800;
+
     static function setUpBeforeClass()  {
         Itwapp::setApiKey(getenv("itwappApiKey"));
         Itwapp::setApiSecretKey(getenv("itwappApiSecret"));
@@ -39,7 +41,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             "interview" => "53fb562418060018063095dd",
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -59,7 +61,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             //"alert" => false,
             "interview" => "53fb562418060018063095dd",
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -79,7 +81,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             "interview" => "53fb562418060018063095dd",
             //"lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -99,7 +101,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             "interview" => "53fb562418060018063095dd",
             "lang" => "en"
-            //"deadline" => 1409045626568
+            //"deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -119,7 +121,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             //"interview" => "53fb562418060018063095dd",
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -139,7 +141,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             "question" => "",
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -166,7 +168,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -186,7 +188,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             "questions" => [],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -213,7 +215,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -240,7 +242,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -267,7 +269,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -294,7 +296,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -321,7 +323,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
         try{
@@ -341,9 +343,8 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
             "alert" => false,
             "interview" => ApplicantTest::$interviewId,
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
-
 
         $res = Applicant::create($param);
         $this->assertEquals("jerome@itwapp.io", $res->mail);
@@ -393,7 +394,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  
         ];
 
 
@@ -430,7 +431,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568,
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  ,
             "interviewName" => "My Super Interview"
         ];
 
@@ -468,7 +469,7 @@ class ApplicantTest extends PHPUnit_Framework_TestCase {
                 ]
             ],
             "lang" => "en",
-            "deadline" => 1409045626568,
+            "deadline" => intval((microtime(true) + ApplicantTest::$oneMonth) * 1000)  ,
             "callback" => "http://mycustomeurl.com/done"
         ];
 
