@@ -99,18 +99,18 @@ abstract class ApiRequest {
         }else{
             switch($res->getStatusCode())   {
                 case 401 :
-                    throw new UnauthorizedException();
+                    throw new UnauthorizedException( $res->getBody() );
                     break;
                 case 400 :
-                    throw new InvalidRequestError();
+                    throw new InvalidRequestError( $res->getBody() );
                     break;
                 case 404 :
-                    throw new ResourceNotFoundException();
+                    throw new ResourceNotFoundException( $res->getBody() );
                     break;
                 case 503 :
                 case 500 :
                 default :
-                    throw new ServiceException();
+                    throw new ServiceException( $res->getBody() );
 
             }
         }
@@ -129,7 +129,7 @@ abstract class ApiRequest {
             $url .= "?apiKey=".\Itwapp::$apiKey;
         }
         $milliseconds = round(microtime(true) * 1000);
-        $url .= "&timestamp=".sprintf('%d',$milliseconds );
+        $url .= "&timestamp=".strval( $milliseconds );
         $signature = Sign::encode($mode.":".$url, Itwapp::$secretKey);
         return $url . "&signature=".$signature;
     }
