@@ -2,6 +2,7 @@ sudo: false
 language: php
 
 php:
+  - 5.5
   - 5.4
 
 before_script:
@@ -10,7 +11,7 @@ before_script:
   - cp .travis.composer.config.json ~/.composer/config.json
 
 script:
-  - composer install --dev --no-interaction
+  - composer install --no-interaction
   - phpunit
 
 after_script:
