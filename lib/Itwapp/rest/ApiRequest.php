@@ -18,7 +18,7 @@ abstract class ApiRequest {
         $signedRequest = ApiRequest::sign_request("GET", $action);
 
         $client = new GuzzleHttp\Client();
-        $res = $client->get(Itwapp::$apiBase.$signedRequest, [
+        $res = $client->request('GET', Itwapp::$apiBase.$signedRequest, [
             'exceptions' => false
         ]);
         return ApiRequest::parse_result($res);
@@ -26,7 +26,7 @@ abstract class ApiRequest {
 
     /**
      * @param $action String the action to call
-     * @param $body Array, some param to send in http body
+     * @param $body array, some param to send in http body
      * @throws InvalidRequestError
      * @throws ResourceNotFoundException
      * @throws ServiceException
@@ -37,7 +37,7 @@ abstract class ApiRequest {
         $signedRequest = ApiRequest::sign_request("POST", $action);
 
         $client = new GuzzleHttp\Client();
-        $res = $client->post(Itwapp::$apiBase.$signedRequest, [
+        $res = $client->request('POST', Itwapp::$apiBase.$signedRequest, [
             'json' => $body,
             'exceptions' => false
         ]);
@@ -47,7 +47,7 @@ abstract class ApiRequest {
 
     /**
      * @param $action String the action to call
-     * @param $body Array, some param to send in http body
+     * @param $body array, some param to send in http body
      * @throws InvalidRequestError
      * @throws ResourceNotFoundException
      * @throws ServiceException
@@ -58,7 +58,7 @@ abstract class ApiRequest {
         $signedRequest = ApiRequest::sign_request("PUT", $action);
 
         $client = new GuzzleHttp\Client();
-        $res = $client->put(Itwapp::$apiBase.$signedRequest, [
+        $res = $client->request('PUT', Itwapp::$apiBase.$signedRequest, [
             'json' => $body,
             'exceptions' => false
         ]);
@@ -78,7 +78,7 @@ abstract class ApiRequest {
         $signedRequest = ApiRequest::sign_request("DELETE", $action);
 
         $client = new GuzzleHttp\Client();
-        $res = $client->delete(Itwapp::$apiBase.$signedRequest, [
+        $res = $client->request('DELETE', Itwapp::$apiBase.$signedRequest, [
             'exceptions' => false
         ]);
 
@@ -86,7 +86,7 @@ abstract class ApiRequest {
     }
 
     /**
-     * @param $res GuzzleHttp\Message\ResponseInterface
+     * @param $res Psr\Http\Message\ResponseInterface
      * @throws InvalidRequestError
      * @throws ResourceNotFoundException
      * @throws ServiceException
@@ -95,7 +95,7 @@ abstract class ApiRequest {
      */
     private static function parse_result($res)  {
         if($res->getStatusCode() == 200)    {
-            return $res->json();
+            return json_decode($res->getBody(), true);
         }else{
             switch($res->getStatusCode())   {
                 case 401 :

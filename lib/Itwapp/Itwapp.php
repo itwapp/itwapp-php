@@ -68,12 +68,12 @@ abstract class Itwapp {
             "password" => $password
         ];
         $client = new GuzzleHttp\Client();
-        $res = $client->post(Itwapp::$apiBase.'/api/v1/auth/', [
+        $res = $client->request('POST', Itwapp::$apiBase.'/api/v1/auth/', [
             'json' => $body,
             'exceptions' => false
         ]);
         if($res->getStatusCode() == 200)    {
-            $json = $res->json();
+            $json = json_decode($res->getBody(), true);
             $all = array();
             foreach($json as $auth)    {
                 $all[] = new AccessToken($auth["apiKey"], $auth["secretKey"], $auth["company"]);
