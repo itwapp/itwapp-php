@@ -55,7 +55,7 @@ abstract class Itwapp {
      * Init api key and secret key with mail and password
      * @param $mail
      * @param $password
-     * @return AccessToken
+     * @return AccessToken[]
      * @throws InvalidRequestError
      * @throws ResourceNotFoundException
      * @throws ServiceException
@@ -74,7 +74,11 @@ abstract class Itwapp {
         ]);
         if($res->getStatusCode() == 200)    {
             $json = $res->json();
-            return new AccessToken($json["apiKey"], $json["secretKey"]);
+            $all = array();
+            foreach($json as $auth)    {
+                $all[] = new AccessToken($auth["apiKey"], $auth["secretKey"], $auth["company"]);
+            }
+            return $all;
         }else{
             switch($res->getStatusCode())   {
                 case 401 :

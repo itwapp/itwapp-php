@@ -23,13 +23,30 @@ class ItwappTest extends PHPUnit_Framework_TestCase {
         try {
             $accessToken = Itwapp::Authenticate(ItwappTest::$mail, ItwappTest::$password);
 
-            $this->assertEquals(ItwappTest::$itwappApiKey, $accessToken->getApiKey());
-            $this->assertEquals(ItwappTest::$itwappApiSecret, $accessToken->getSecretKey());
+            $object = $this->findAccessTokenInArrayWithCompanyId($accessToken, "5400a3484700004700fe93c2");
+            $this->assertNotNull($object);
+
+            $this->assertEquals(ItwappTest::$itwappApiKey, $object->getApiKey());
+            $this->assertEquals(ItwappTest::$itwappApiSecret, $object->getSecretKey());
         }catch(UnauthorizedException $e)    {
             $this->fail($e);
         }catch(Exception $e)    {
             $this->fail($e);
         }
+    }
+
+    /**
+     * @param $theArray AccessToken[]
+     * @param $value string
+     * @return null|AccessToken
+     */
+    private function findAccessTokenInArrayWithCompanyId($theArray, $value){
+        foreach($theArray as $arrayItem) {
+            if($arrayItem->getCompany() == $value) {
+                return $arrayItem;
+            }
+        }
+        return null;
     }
 
 }

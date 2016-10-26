@@ -82,7 +82,7 @@ class ApiRequestTest extends PHPUnit_Framework_TestCase {
         $client = new GuzzleHttp\Client();
         $res = $client->post(Itwapp::$apiBase.$urlSigned, [
             'exceptions' => false,
-            'body' => array()
+            'json' => array()
         ]);
 
         $method = new ReflectionMethod('ApiRequest', 'parse_result');
