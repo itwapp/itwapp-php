@@ -7,6 +7,7 @@ class ItwappTest extends PHPUnit_Framework_TestCase {
 
     private static $itwappApiKey;
     private static $itwappApiSecret;
+    private static $companyId;
 
     static function setUpBeforeClass()  {
         ItwappTest::$mail = getenv("itwappMail");
@@ -14,6 +15,7 @@ class ItwappTest extends PHPUnit_Framework_TestCase {
 
         ItwappTest::$itwappApiKey = getenv("itwappApiKey");
         ItwappTest::$itwappApiSecret = getenv("itwappApiSecret");
+        ItwappTest::$companyId = getenv("itwappCompanyId");
     }
 
     public function testAuth()  {
@@ -23,7 +25,7 @@ class ItwappTest extends PHPUnit_Framework_TestCase {
         try {
             $accessToken = Itwapp::Authenticate(ItwappTest::$mail, ItwappTest::$password);
 
-            $object = $this->findAccessTokenInArrayWithCompanyId($accessToken, "5400a3484700004700fe93c2");
+            $object = $this->findAccessTokenInArrayWithCompanyId($accessToken, ItwappTest::$companyId);
             $this->assertNotNull($object);
 
             $this->assertEquals(ItwappTest::$itwappApiKey, $object->getApiKey());
