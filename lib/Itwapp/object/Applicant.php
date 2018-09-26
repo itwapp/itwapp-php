@@ -215,6 +215,31 @@ class Applicant {
     }
 
     /**
+     * This endpoint update an applicant. It return the updated applicant if success. If some parameters is missing it will return a BadRequest.
+     * @param $id string the ID of the applicant to update
+     * @param $param string[]
+     * @throws InvalidRequestError
+     * @return Applicant
+     */
+
+     public static function update($id, $param) {
+       if(!isset($param["firstname"]) && !isset($param["lastname"]) && !isset($param["phone"]) && !isset($param["textIntro"]) && !isset($param["videoLink"])){
+         throw new InvalidRequestError("no valid param found");
+       }else{
+         $app = ApiRequest::put("/api/v1/applicant/".$id, $param);
+         $questions = array();
+         foreach($app["questions"] as $q){
+           $questions[] = new Question($q["content"], $q["readingTime"], $q["answerTime"], $q["number"]);
+         }
+         $responses = array();
+         foreach($app["responses"] as $q)    {
+           $responses[] = new Response($q["file"], $q["duration"], $q["fileSize"], $q["number"], $q["thumbnail"]);
+         }
+         return new Applicant($app["_id"], $app["mail"], $questions, $responses, $app["interview"], $app["dateBegin"], $app["dateEnd"], $app["dateAnswer"], $app["emailView"], $app["linkClicked"], $app["firstname"], $app["lastname"], $app["lang"], $app["videoLink"], $app["text"], $app["deleted"], $app["callback"], $app["status"]);
+       }
+     }
+
+    /**
      * this endpoint delete a specific applicant.
      * @param $id string the ID of the applicant to delete
      * @return bool
@@ -224,4 +249,4 @@ class Applicant {
         return $result != null;
     }
 
-} 
+}
