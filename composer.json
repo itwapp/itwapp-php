@@ -6,7 +6,7 @@
         "interview video",
         "api"
     ],
-    "homepage": "http://itwapp.io/",
+    "homepage": "https://itwapp.io/",
     "license": "MIT",
     "authors": [
         {
@@ -16,11 +16,11 @@
     ],
     "require": {
         "php": "^5.6 || ^7.0",
-        "guzzlehttp/guzzle": "6.2.2"
+        "guzzlehttp/guzzle": "6.5.8"
     },
     "require-dev": {
         "phpunit/phpunit": "5.6.2",
-        "satooshi/php-coveralls": "2.0.x-dev"
+        "satooshi/php-coveralls": "2.2.x-dev"
     },
     "autoload": {
         "classmap": ["lib/Itwapp/"]
